@@ -1,0 +1,215 @@
+
+Setting environment for using XAMPP for Windows.
+Lapis@DESKTOP-02GTL6R c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 42
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> -- Membuat database
+MariaDB [(none)]> CREATE DATABASE ecommerce_db;
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [(none)]>
+MariaDB [(none)]> -- Gunakan database
+MariaDB [(none)]> USE ecommerce_db;
+Database changed
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Produk
+MariaDB [ecommerce_db]> CREATE TABLE products (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     product_name VARCHAR(100) NOT NULL,
+    ->     price DECIMAL(10,2) NOT NULL,
+    ->     description TEXT,
+    ->     stock INT DEFAULT 0
+    -> );
+Query OK, 0 rows affected (0.236 sec)
+
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Users
+MariaDB [ecommerce_db]> CREATE TABLE users (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     username VARCHAR(50) NOT NULL,
+    ->     email VARCHAR(100) NOT NULL UNIQUE,
+    ->     password VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.194 sec)
+
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Orders
+MariaDB [ecommerce_db]> CREATE TABLE orders (
+    ->     order_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_id INT NOT NULL,
+    ->     product_id INT NOT NULL,
+    ->     quantity INT NOT NULL,
+    ->     total DECIMAL(10,2) NOT NULL,
+    ->     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    ->     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.412 sec)
+
+MariaDB [ecommerce_db]> clear
+MariaDB [ecommerce_db]> SELECT * FFROM ecommerce-db
+    -> SELECT * FFROM ecommerce_db;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FFROM ecommerce-db
+SELECT * FFROM ecommerce_db' at line 1
+MariaDB [ecommerce_db]> -- Membuat database
+MariaDB [ecommerce_db]> CREATE DATABASE ecommerce_db;
+ERROR 1007 (HY000): Can't create database 'ecommerce_db'; database exists
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Gunakan database
+MariaDB [ecommerce_db]> USE ecommerce_db;
+Database changed
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Produk
+MariaDB [ecommerce_db]> CREATE TABLE products (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     product_name VARCHAR(100) NOT NULL,
+    ->     price DECIMAL(10,2) NOT NULL,
+    ->     description TEXT,
+    ->     stock INT DEFAULT 0
+    -> );
+ERROR 1050 (42S01): Table 'products' already exists
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Users
+MariaDB [ecommerce_db]> CREATE TABLE users (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     username VARCHAR(50) NOT NULL,
+    ->     email VARCHAR(100) NOT NULL UNIQUE,
+    ->     password VARCHAR(255) NOT NULL
+    -> );
+ERROR 1050 (42S01): Table 'users' already exists
+MariaDB [ecommerce_db]>
+MariaDB [ecommerce_db]> -- Tabel Orders
+MariaDB [ecommerce_db]> CREATE TABLE orders (
+    ->     order_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_id INT NOT NULL,
+    ->     product_id INT NOT NULL,
+    ->     quantity INT NOT NULL,
+    ->     total DECIMAL(10,2) NOT NULL,
+    ->     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    ->     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    -> );
+ERROR 1050 (42S01): Table 'orders' already exists
+MariaDB [ecommerce_db]> SELECT*FROM products
+    -> ;
+Empty set (0.002 sec)
+
+MariaDB [ecommerce_db]> INSERT INTO products (product_name, price, description, stock)
+    -> VALUES
+    -> ('Bola Sepak Adidas', 250000, 'Bola sepak Adidas berkualitas tinggi untuk latihan dan pertandingan.', 20),
+    -> ('Raket Badminton Yonex', 450000, 'Raket badminton ringan dan kuat cocok untuk pemula hingga profesional.', 15),
+    -> ('Sepatu Lari Nike', 850000, 'Sepatu lari Nike dengan teknologi Air untuk kenyamanan maksimal.', 10),
+    -> ('Matras Yoga', 150000, 'Matras yoga anti-slip dan nyaman digunakan di berbagai permukaan.', 30),
+    -> ('Sarung Tangan Gym', 80000, 'Sarung tangan gym untuk melindungi tangan saat angkat beban.', 25),
+    -> ('Sepeda Gunung Polygon', 3500000, 'Sepeda gunung dengan rangka ringan dan gigi kecepatan 21.', 5),
+    -> ('Bola Basket Molten', 300000, 'Bola basket Molten dengan grip kuat dan tahan lama.', 18),
+    -> ('Skipping Rope', 50000, 'Tali skipping ringan untuk latihan kardio dan pembakaran kalori.', 40),
+    -> ('Pelindung Lutut', 90000, 'Pelindung lutut elastis untuk mencegah cedera saat berolahraga.', 22),
+    -> ('Helm Sepeda', 200000, 'Helm sepeda dengan ventilasi udara dan desain aerodinamis.', 12);
+Query OK, 10 rows affected (0.038 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [ecommerce_db]> INSERT INTO users (username, email, password)
+    -> VALUES
+    -> ('budi123', 'budi@example.com', 'pass123'),
+    -> ('siti_olahraga', 'siti@example.com', 'pass456'),
+    -> ('andi_fitness', 'andi@example.com', 'pass789'),
+    -> ('lisa_yoga', 'lisa@example.com', 'yoga123'),
+    -> ('rizal_runner', 'rizal@example.com', 'run456'),
+    -> ('eko_basket', 'eko@example.com', 'basket789'),
+    -> ('maya_cyclist', 'maya@example.com', 'cycle123'),
+    -> ('joko_gym', 'joko@example.com', 'gym456'),
+    -> ('nina_sport', 'nina@example.com', 'sport789'),
+    -> ('ferdi_sepak', 'ferdi@example.com', 'sepak123');
+Query OK, 10 rows affected (0.028 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [ecommerce_db]> INSERT INTO orders (user_id, product_id, quantity, total)
+    -> VALUES
+    -> (1, 3, 1, 850000),   -- Budi beli Sepatu Lari Nike
+    -> (2, 1, 2, 500000),   -- Siti beli 2 Bola Sepak Adidas
+    -> (3, 2, 1, 450000),   -- Andi beli Raket Badminton
+    -> (4, 4, 1, 150000),   -- Lisa beli Matras Yoga
+    -> (5, 5, 3, 240000),   -- Rizal beli 3 Sarung Tangan Gym
+    -> (6, 7, 2, 600000),   -- Eko beli 2 Bola Basket Molten
+    -> (7, 10, 1, 200000),  -- Maya beli Helm Sepeda
+    -> (8, 6, 1, 3500000),  -- Joko beli Sepeda Gunung
+    -> (9, 8, 4, 200000),   -- Nina beli 4 Skipping Rope
+    -> (10, 9, 2, 180000);  -- Ferdi beli 2 Pelindung Lutut
+Query OK, 10 rows affected (0.061 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [ecommerce_db]> SELECT * FROM users
+    -> ;
++----+---------------+-------------------+-----------+
+| id | username      | email             | password  |
++----+---------------+-------------------+-----------+
+|  1 | budi123       | budi@example.com  | pass123   |
+|  2 | siti_olahraga | siti@example.com  | pass456   |
+|  3 | andi_fitness  | andi@example.com  | pass789   |
+|  4 | lisa_yoga     | lisa@example.com  | yoga123   |
+|  5 | rizal_runner  | rizal@example.com | run456    |
+|  6 | eko_basket    | eko@example.com   | basket789 |
+|  7 | maya_cyclist  | maya@example.com  | cycle123  |
+|  8 | joko_gym      | joko@example.com  | gym456    |
+|  9 | nina_sport    | nina@example.com  | sport789  |
+| 10 | ferdi_sepak   | ferdi@example.com | sepak123  |
++----+---------------+-------------------+-----------+
+10 rows in set (0.001 sec)
+
+MariaDB [ecommerce_db]> SELECT * FROM products;
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+| id | product_name          | price      | description                                                            | stock |
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+|  1 | Bola Sepak Adidas     |  250000.00 | Bola sepak Adidas berkualitas tinggi untuk latihan dan pertandingan.   |    20 |
+|  2 | Raket Badminton Yonex |  450000.00 | Raket badminton ringan dan kuat cocok untuk pemula hingga profesional. |    15 |
+|  3 | Sepatu Lari Nike      |  850000.00 | Sepatu lari Nike dengan teknologi Air untuk kenyamanan maksimal.       |    10 |
+|  4 | Matras Yoga           |  150000.00 | Matras yoga anti-slip dan nyaman digunakan di berbagai permukaan.      |    30 |
+|  5 | Sarung Tangan Gym     |   80000.00 | Sarung tangan gym untuk melindungi tangan saat angkat beban.           |    25 |
+|  6 | Sepeda Gunung Polygon | 3500000.00 | Sepeda gunung dengan rangka ringan dan gigi kecepatan 21.              |     5 |
+|  7 | Bola Basket Molten    |  300000.00 | Bola basket Molten dengan grip kuat dan tahan lama.                    |    18 |
+|  8 | Skipping Rope         |   50000.00 | Tali skipping ringan untuk latihan kardio dan pembakaran kalori.       |    40 |
+|  9 | Pelindung Lutut       |   90000.00 | Pelindung lutut elastis untuk mencegah cedera saat berolahraga.        |    22 |
+| 10 | Helm Sepeda           |  200000.00 | Helm sepeda dengan ventilasi udara dan desain aerodinamis.             |    12 |
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [ecommerce_db]> UPDATE products SET price = 100000 stock = 100 Where id = 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'stock = 100 Where id = 5' at line 1
+MariaDB [ecommerce_db]> UPDATE products SET price = 100000 stock = 100 Where id = 5 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'stock = 100 Where id = 5' at line 1
+MariaDB [ecommerce_db]> UPDATE products SET price = 100000 stock = 100 WHERE id = 5 ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'stock = 100 WHERE id = 5' at line 1
+MariaDB [ecommerce_db]> UPDATE products SET price = 100000, stock = 100 WHERE id = 5 ;
+Query OK, 1 row affected (0.067 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [ecommerce_db]> SELECT*FROM products
+    -> ;
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+| id | product_name          | price      | description                                                            | stock |
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+|  1 | Bola Sepak Adidas     |  250000.00 | Bola sepak Adidas berkualitas tinggi untuk latihan dan pertandingan.   |    20 |
+|  2 | Raket Badminton Yonex |  450000.00 | Raket badminton ringan dan kuat cocok untuk pemula hingga profesional. |    15 |
+|  3 | Sepatu Lari Nike      |  850000.00 | Sepatu lari Nike dengan teknologi Air untuk kenyamanan maksimal.       |    10 |
+|  4 | Matras Yoga           |  150000.00 | Matras yoga anti-slip dan nyaman digunakan di berbagai permukaan.      |    30 |
+|  5 | Sarung Tangan Gym     |  100000.00 | Sarung tangan gym untuk melindungi tangan saat angkat beban.           |   100 |
+|  6 | Sepeda Gunung Polygon | 3500000.00 | Sepeda gunung dengan rangka ringan dan gigi kecepatan 21.              |     5 |
+|  7 | Bola Basket Molten    |  300000.00 | Bola basket Molten dengan grip kuat dan tahan lama.                    |    18 |
+|  8 | Skipping Rope         |   50000.00 | Tali skipping ringan untuk latihan kardio dan pembakaran kalori.       |    40 |
+|  9 | Pelindung Lutut       |   90000.00 | Pelindung lutut elastis untuk mencegah cedera saat berolahraga.        |    22 |
+| 10 | Helm Sepeda           |  200000.00 | Helm sepeda dengan ventilasi udara dan desain aerodinamis.             |    12 |
++----+-----------------------+------------+------------------------------------------------------------------------+-------+
+10 rows in set (0.001 sec)
+
+MariaDB [ecommerce_db]> DELETE FROM products, users WHERE id = 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE id = 10' at line 1
+MariaDB [ecommerce_db]> DELETE FROM products WHERE id = 10;
+Query OK, 1 row affected (0.174 sec)
+
+MariaDB [ecommerce_db]>
