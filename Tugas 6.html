@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Alat Olahraga</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+    header {
+      background: #0d6efd;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    .filter {
+      max-width: 1200px;
+      margin: 1rem auto;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 1rem;
+    }
+    .filter select {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .price {
+      color: #0d6efd;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .description {
+      font-size: 0.9rem;
+      color: #555;
+      flex-grow: 1;
+    }
+    .btn {
+      background: #0d6efd;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #084298;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>E-Commerce Alat Olahraga</h1>
+</header>
+
+<div class="filter">
+  <select id="filterSelect" onchange="filterProducts()">
+    <option value="default">Urutkan</option>
+    <option value="az">Nama (A-Z)</option>
+    <option value="low">Harga Terendah</option>
+    <option value="high">Harga Tertinggi</option>
+  </select>
+</div>
+
+<div class="container" id="productContainer">
+  <!-- Produk akan ditampilkan di sini -->
+</div>
+
+<script>
+  const products = [
+    { name: "Bola Sepak", price: 150000, description: "Bola sepak berkualitas tinggi untuk latihan dan pertandingan.", image: "https://picsum.photos/id/21/400/300" },
+    { name: "Raket Badminton", price: 200000, description: "Raket ringan dan kuat untuk permainan optimal.", image: "https://picsum.photos/id/25/400/300" },
+    { name: "Sepatu Lari", price: 500000, description: "Sepatu lari dengan bantalan empuk dan desain ergonomis.", image: "https://picsum.photos/id/28/400/300" },
+    { name: "Matras Yoga", price: 120000, description: "Matras yoga anti-slip untuk kenyamanan latihan.", image: "https://picsum.photos/id/32/400/300" },
+    { name: "Sarung Tangan Gym", price: 80000, description: "Sarung tangan untuk melindungi tangan saat angkat beban.", image: "https://picsum.photos/id/33/400/300" },
+    { name: "Bola Basket", price: 180000, description: "Bola basket ukuran standar FIBA.", image: "https://picsum.photos/id/35/400/300" },
+    { name: "Skipping Rope", price: 50000, description: "Tali skipping untuk latihan kardio.", image: "https://picsum.photos/id/36/400/300" },
+    { name: "Pelindung Lutut", price: 100000, description: "Pelindung lutut untuk olahraga ekstrem.", image: "https://picsum.photos/id/39/400/300" },
+    { name: "Papan Seluncur", price: 450000, description: "Papan seluncur untuk aksi freestyle.", image: "https://picsum.photos/id/40/400/300" },
+    { name: "Set Dumbbell", price: 300000, description: "Set dumbbell dengan berat adjustable.", image: "https://picsum.photos/id/41/400/300" },
+  ];
+
+  function displayProducts(items) {
+    const container = document.getElementById('productContainer');
+    container.innerHTML = "";
+    items.forEach(product => {
+      container.innerHTML += `
+        <div class="card">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="card-body">
+            <div class="card-title">${product.name}</div>
+            <div class="price">Rp ${product.price.toLocaleString()}</div>
+            <div class="description">${product.description}</div>
+            <button class="btn">Beli Sekarang</button>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  function filterProducts() {
+    const filter = document.getElementById('filterSelect').value;
+    let sortedProducts = [...products];
+
+    if (filter === "az") {
+      sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (filter === "low") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (filter === "high") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    displayProducts(sortedProducts);
+  }
+
+  // Tampilkan produk pertama kali
+  displayProducts(products);
+</script>
+
+</body>
+</html>
