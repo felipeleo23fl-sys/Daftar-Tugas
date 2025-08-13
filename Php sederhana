@@ -1,0 +1,17 @@
+<?php
+// variabel
+$angka1 = 10;
+$angka2 = 5;
+
+// operator
+$hasil = $angka1 + $angka2;
+
+// penggunaan else-if
+if ($hasil > 20) {
+    echo "Hasil lebih dari 20";
+} elseif ($hasil == 15) {
+    echo "Hasil sama dengan 15";
+} else {
+    echo "Hasil kurang dari 20 dan tidak sama dengan 15";
+}
+?>
